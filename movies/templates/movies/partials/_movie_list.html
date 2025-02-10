@@ -1,0 +1,16 @@
+{% if error_message%}
+  <p>{{error_message}}</p>
+  {%endif%}
+{% for movie in movies %}
+<div class="col-md">
+<a href="#" class="text-decoration-none">
+<div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="https://image.tmdb.org/t/p/original/{{movie.poster_path}}" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">{{movie.title}}</h5>
+    <p class="card-text">{{movie.vote_average|floatformat:1}}/10</p>
+  </div>
+</div>
+</a>
+</div>
+{% endfor %}

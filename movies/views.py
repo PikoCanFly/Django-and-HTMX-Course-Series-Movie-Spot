@@ -19,7 +19,12 @@ def landing_page(request):
     except Exception as e:
         data=[]
         error_message= f"Something went wrong!"
-    print(data)
+
+    if request.headers.get("HX-Request"):
+        return render(request, "movies/partials/_movie_list.html", {"movies":data, "category":category,
+                                                   "search_query":search_query,
+                                                   "error_message":error_message})
+        
     return render(request, "movies/landing.html", {"movies":data, "category":category,
                                                    "search_query":search_query,
                                                    "error_message":error_message})
