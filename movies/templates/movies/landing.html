@@ -2,7 +2,7 @@
 
 
 {% block content %}
-<div class="container mt-4">
+<div class="container mt-4 mb-4">
 <form method="get">
     <select class="btn btn-primary dropdown-toggle" name="category" hx-get="{% url 'landing_page'%}" hx-target="#movie-container" hx-swap="innerHTML" >
         <option value="popular" {% if category == 'popular' %} selected {%endif%}>Popular</option>

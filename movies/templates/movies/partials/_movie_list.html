@@ -5,7 +5,7 @@
 <div class="col-md">
 <a href="#" class="text-decoration-none">
 <div class="card" style="width: 18rem;">
-  <img class="card-img-top" src="https://image.tmdb.org/t/p/original/{{movie.poster_path}}" alt="Card image cap">
+  <img class="card-img-top" src="{% if movie.poster_path %}https://image.tmdb.org/t/p/original/{{movie.poster_path}} {%else%} https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019{% endif %}" alt="{{movie.title}}">
   <div class="card-body">
     <h5 class="card-title">{{movie.title}}</h5>
     <p class="card-text">{{movie.vote_average|floatformat:1}}/10</p>
@@ -14,3 +14,12 @@
 </a>
 </div>
 {% endfor %}
+
+{% if has_next %}
+<div id="scroll-trigger"
+hx-get="{% url 'landing_page' %}?category={{category}}&search={{search_query}}&page={{next_page}}"
+hx-trigger="revealed"
+hx-swap="beforeend"
+hx-target="#movie-container"
+></div>
+{% endif%}
