@@ -1,0 +1,46 @@
+{% extends "base.html" %} {%block content%}
+<div class="container my-5">
+	<h1>{{movie.title}}</h1>
+	<h2 class="text-muted fw-light small">{{movie.release_date}}</h2>
+	<div class="row">
+		<div class="col">
+			<img
+				class="card-img-top"
+				src="{% if movie.poster_path %}https://image.tmdb.org/t/p/original/{{movie.poster_path}} {%else%} https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019{% endif %}"
+				alt="{{movie.title}}"
+			/>
+		</div>
+		<div class="col">
+			<p>{{movie.overview}}</p>
+			<h3>Genres:</h3>
+			<ul class="list-inline">
+				{% for genre in movie.genres %}
+				<li class="list-inline-item">{{genre.name}}</li>
+				{%empty%}
+				<p class="text-muted">No genres provided.</p>
+				{%endfor%}
+			</ul>
+            <h3>Directors</h3>
+            <ul class="list-inline">
+
+            {% for member in credits.crew%}
+            {% if member.job == "Director"%}
+            <li class="list-inline-item" >{{member.name}}</li>
+            {% endif %}
+            {%empty%}
+				<p class="text-muted">No director info available.</p>
+            {%endfor%}
+            </ul>
+
+			<h3>Cast:</h3>
+			<ul class="list-inline">
+				{% for member in credits.cast|slice:":10"  %}
+				<li class="list-inline-item">{{member.name}}</li>
+				{%empty%}
+				<p class="text-muted">No cast info provided.</p>
+				{%endfor%}
+			</ul>
+		</div>
+	</div>
+</div>
+{% endblock%}

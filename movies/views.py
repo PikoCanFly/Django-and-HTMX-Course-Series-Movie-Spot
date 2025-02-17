@@ -2,10 +2,12 @@ from django.shortcuts import render
 from django.conf import settings
 import requests
 
+API_KEY = settings.TMDB_API_KEY
+
+
 def landing_page(request):
     category = request.GET.get("category", "popular")
     search_query = request.GET.get("search", "")
-    API_KEY = settings.TMDB_API_KEY
     page = int(request.GET.get("page", 1))
     next_page = page + 1
     base_url="https://api.themoviedb.org/3/movie/"
@@ -38,5 +40,27 @@ def landing_page(request):
                                                    "next_page":next_page,
                                                    "has_next":has_next})
     
+def movie_detail(request, movie_id):
+    movie_detail_url = f"https://api.themoviedb.org/3/movie/{movie_id}?api_key={API_KEY}"
+    movie_credits_url = f"https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key={API_KEY}"
+    error_message = ""
+    try:
+        movie_detail_response = requests.get(movie_detail_url)
+        movie_detail_response.raise_for_status()
+        movie_data = movie_detail_response.json()
+    except Exception as e:
+        movie_data=[]
+        error_message= f"Something went wrong!"
     
+    try:
+        movie_credits_response = requests.get(movie_credits_url)
+        movie_credits_response.raise_for_status()
+        credits_data = movie_credits_response.json()
+    except Exception as e:
+        credits_data=[]
+        error_message= f"Something went wrong!"
+    return render(request, "movies/movie_detail.html", {"movie":movie_data,
+                                                        "error_message":error_message,
+                                                        "credits":credits_data })
     
+        
