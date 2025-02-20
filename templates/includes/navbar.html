@@ -1,5 +1,19 @@
 <nav class="navbar navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="/">Movie Spot</a>
+    <div>
+      {% if user.is_authenticated %}
+      <form method="post" action="{% url 'logout'%}">
+        {% csrf_token %}
+        <button type="submit" class="nav-item text-light"
+        style="border:none; background:none;"
+        >Logout</button>
+      </form>
+      {% else %}
+      <li class="d-inline">
+        <a class="nav-link text-light"href="{% url 'login'%}">Login</a>
+      </li>
+      {%endif%}
+    </div>
   </div>
 </nav>
