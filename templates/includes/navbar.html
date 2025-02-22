@@ -1,14 +1,18 @@
 <nav class="navbar navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="/">Movie Spot</a>
-    <div>
+    <div class="d-flex">
       {% if user.is_authenticated %}
+      <li class="d-inline me-2" style="margin-top:2px;">
+        <a class="nav-link text-light"href="{% url 'profile'%}">{{user.username|capfirst}}'s Hub</a>
+      </li>
       <form method="post" action="{% url 'logout'%}">
         {% csrf_token %}
         <button type="submit" class="nav-item text-light"
         style="border:none; background:none;"
         >Logout</button>
       </form>
+    
       {% else %}
       <li class="d-inline">
         <a class="nav-link text-light"href="{% url 'login'%}">Login</a>

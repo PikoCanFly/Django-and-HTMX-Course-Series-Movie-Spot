@@ -1,8 +1,12 @@
+<div class="col-md-6">
+    <div class="card shadow-lg p-4">
 <form hx-post="{% url 'create_list' %}"
 hx-target="#user-lists-container"
 hx-swap = "innerHTML"
 >
 {% csrf_token %}
     {{form}}
-    <button type="submit">Create List</button>
+    <button class="btn btn-primary mt-2" type="submit">Create List</button>
 </form>
+</div>
+</div>

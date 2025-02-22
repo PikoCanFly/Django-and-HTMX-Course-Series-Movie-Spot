@@ -8,12 +8,6 @@
 {% include 'users/lists/partials/_user_lists.html'%}
 </div>
 
-<button
-hx-get = {% url 'create_list'%}
-hx-swap = "innerHTML"
-hx-target = "#create-form-container"
-class="btn">➕ List</button>
 
-<div id="create-form-container"></div>
 </div>
 {% endblock %}

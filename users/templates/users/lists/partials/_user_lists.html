@@ -5,3 +5,10 @@
     </li>
 	{% endfor %}
 </ul>
+<button
+hx-get = {% url 'create_list'%}
+hx-swap = "innerHTML"
+hx-target = "#create-form-container"
+class="btn">➕ List</button>
+
+<div id="create-form-container"></div>
