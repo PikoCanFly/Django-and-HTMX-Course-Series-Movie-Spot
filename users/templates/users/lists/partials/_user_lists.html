@@ -1,8 +1,9 @@
 <ul class="list-group">
 	{% for list in user_lists %}
-	<li class="list-group-item"><a href="#">{{list.name}}</a>
-    <button class="btn">❌</button>
+	<li class="list-group-item d-flex"><a href="#">{{list.name}}</a>
+    <button type="submit" class="btn" data-bs-toggle="modal" data-bs-target="#delete-list-modal-{{list.id}}">❌</button>
     </li>
+	{% include "users/modals/_list_delete_confirmation.html"%}
 	{% endfor %}
 </ul>
 <button
