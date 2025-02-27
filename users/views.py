@@ -4,7 +4,7 @@ from django.views.generic.edit import FormView
 from .forms import RegisterUserForm, CreateListForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
-from .models import UserList
+from .models import UserList, ListItem
 from django.shortcuts import get_object_or_404
 from django.http.response import HttpResponseForbidden
 
@@ -65,4 +65,16 @@ def delete_list(request, list_id):
                           {"user_lists":user_lists})
     return HttpResponseForbidden
     
+@login_required
+def add_to_list(request, movie_id, movie_name, list_id):
+    user_list = get_object_or_404(UserList, id=list_id, user=request.user)
     
+    if ListItem.objects.filter(movie_id=movie_id, list=user_list).exists():
+        message = f"{movie_name} is already in {user_list}."
+        status = "danger"
+    else:
+        ListItem.objects.create(movie_id=movie_id, movie_name=movie_name, list=user_list)
+        message = f"{movie_name} was added to {user_list}."
+        status = "success"
+    return render(request, "users/toasts/_confirmation_toast.html", {"message":message, "status":status})
+            
