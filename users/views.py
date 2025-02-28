@@ -7,6 +7,11 @@ from django.contrib.auth.decorators import login_required
 from .models import UserList, ListItem
 from django.shortcuts import get_object_or_404
 from django.http.response import HttpResponseForbidden
+import requests
+from django.conf import settings
+
+
+API_KEY = settings.TMDB_API_KEY
 
 class Login(LoginView):
     template_name = "users/accounts/login.html"
@@ -77,4 +82,28 @@ def add_to_list(request, movie_id, movie_name, list_id):
         message = f"{movie_name} was added to {user_list}."
         status = "success"
     return render(request, "users/toasts/_confirmation_toast.html", {"message":message, "status":status})
-            
+
+def list_detail(request, list_id):
+    user_list = get_object_or_404(UserList, id=list_id)
+    list_items = ListItem.objects.filter(list=user_list)
+    base_url = "https://api.themoviedb.org/3/movie/"
+    
+    movies = []
+    for item in list_items:
+        movie_id = item.movie_id
+        url = f"{base_url}{movie_id}?api_key={API_KEY}"
+        response = requests.get(url)
+        if response.status_code == 200:
+            movie = response.json()
+            movies.append(movie)
+    return render(request, 'users/lists/user_list_detail.html',{"movies":movies, "user_list":user_list,
+                                                          "is_owner": request.user.is_authenticated and request.user == user_list.user})    
+@login_required
+def delete_movie(request, movie_id, list_id):
+    user_list = get_object_or_404(UserList, id=list_id, user=request.user)
+    movie= get_object_or_404(ListItem, movie_id=movie_id, list=user_list) 
+    if request.method == "POST":
+        movie.delete()
+        movies = ListItem.objects.filter(list=user_list)
+        return render(request, "users/lists/partials/_updated_list.html",{"movies":movies})
+    return HttpResponseForbidden              

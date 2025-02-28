@@ -9,6 +9,36 @@
   <div class="card-body">
     <h5 class="card-title">{{movie.title}}</h5>
     <p class="card-text">{{movie.vote_average|floatformat:1}}/10</p>
+    {% if user.is_authenticated %}
+			{% if user_lists %}
+			<div class="dropdown">
+				<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+				  Add to list
+				</button>
+				<ul class="dropdown-menu">
+
+			{% for list in user_lists%}
+			<li>
+				<form hx-post="{% url 'add_to_list' list_id=list.id movie_id=movie.id movie_name=movie.title %}"
+				hx-trigger="click"
+				hx-target="#toast-container"
+				hx-swap = "beforeend"
+				>
+				{% csrf_token %}
+				<button type="submit" class="dropdown-item">{{list.name}}</button>
+			</form>
+			</li>			
+			{%endfor%}
+      <form method="get" action="{% url 'profile'%}">
+      <button
+      class="btn">➕ List</button>
+      </form>
+		</ul>
+	</div>
+			{% else %}
+			<p>You do not have any lists. <a href="{% url 'profile' %}">Creat a list!</a></p>
+			{% endif %}
+			{% endif %}
   </div>
 </div>
 </a>

@@ -13,6 +13,7 @@ def landing_page(request):
     next_page = page + 1
     base_url="https://api.themoviedb.org/3/movie/"
     error_message = ""
+    user_lists = UserList.objects.filter(user=request.user) if request.user.is_authenticated else None
     if search_query:
         url = f"https://api.themoviedb.org/3/search/movie?api_key={API_KEY}&query={search_query}&page={page}"
     else:
@@ -33,13 +34,15 @@ def landing_page(request):
                                                    "search_query":search_query,
                                                    "error_message":error_message,
                                                    "next_page":next_page,
-                                                   "has_next":has_next})
+                                                   "has_next":has_next,
+                                                   "user_lists":user_lists})
         
     return render(request, "movies/landing.html", {"movies":data, "category":category,
                                                    "search_query":search_query,
                                                    "error_message":error_message,
                                                    "next_page":next_page,
-                                                   "has_next":has_next})
+                                                   "has_next":has_next,
+                                                   "user_lists":user_lists})
     
 def movie_detail(request, movie_id):
     movie_detail_url = f"https://api.themoviedb.org/3/movie/{movie_id}?api_key={API_KEY}"
