@@ -75,13 +75,14 @@ def add_to_list(request, movie_id, movie_name, list_id):
     user_list = get_object_or_404(UserList, id=list_id, user=request.user)
     
     if ListItem.objects.filter(movie_id=movie_id, list=user_list).exists():
-        message = f"{movie_name} is already in {user_list}."
+        message = f"{movie_name} is already in "
         status = "danger"
     else:
         ListItem.objects.create(movie_id=movie_id, movie_name=movie_name, list=user_list)
-        message = f"{movie_name} was added to {user_list}."
+        message = f"{movie_name} was added to "
         status = "success"
-    return render(request, "users/toasts/_confirmation_toast.html", {"message":message, "status":status})
+    return render(request, "users/toasts/_confirmation_toast.html", {"message":message, "status":status,
+                                                                     "user_list":user_list})
 
 def list_detail(request, list_id):
     user_list = get_object_or_404(UserList, id=list_id)
@@ -104,6 +105,17 @@ def delete_movie(request, movie_id, list_id):
     movie= get_object_or_404(ListItem, movie_id=movie_id, list=user_list) 
     if request.method == "POST":
         movie.delete()
-        movies = ListItem.objects.filter(list=user_list)
-        return render(request, "users/lists/partials/_updated_list.html",{"movies":movies})
-    return HttpResponseForbidden              
+        list_items = ListItem.objects.filter(list=user_list)
+        base_url = "https://api.themoviedb.org/3/movie/"
+    
+        movies = []
+        for item in list_items:
+            movie_id = item.movie_id
+            url = f"{base_url}{movie_id}?api_key={API_KEY}"
+            response = requests.get(url)
+            if response.status_code == 200:
+                movie = response.json()
+                movies.append(movie)
+        return render(request, "users/lists/partials/_updated_list.html",{"movies":movies, "user_list":user_list,
+                                                          "is_owner": request.user.is_authenticated and request.user == user_list.user})
+    return HttpResponseForbidden       
