@@ -9,12 +9,16 @@ from django.shortcuts import get_object_or_404
 from django.http.response import HttpResponseForbidden
 import requests
 from django.conf import settings
+from django.urls import reverse_lazy
 
 
 API_KEY = settings.TMDB_API_KEY
 
 class Login(LoginView):
     template_name = "users/accounts/login.html"
+    
+    def get_success_url(self):
+        return reverse_lazy("profile")
 
 class Logout(LogoutView):
     next_page = "/"
