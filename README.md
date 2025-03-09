@@ -29,8 +29,8 @@ Welcome to **Movie Spot Part-1**! This branch is the starting point of our begin
 To get started, clone the repository from GitHub:
 
 ```
-git clone https://github.com/PikoCanFly/Learn-Django-HTMX-Course.git
-cd Learn-Django-HTMX-Course
+git clone https://github.com/PikoCanFly/Django-and-HTMX-Course-Series-Movie-Spot.git
+cd Django-and-HTMX-Course-Series-Movie-Spot
 ```
 
 ## Accessing the branches:
