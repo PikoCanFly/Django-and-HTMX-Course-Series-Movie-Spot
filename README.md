@@ -29,17 +29,13 @@ In this part of the tutorial, we enhance our Django project by creating a dynami
 
 ## How to Clone and Access Branches
 
-## How to Clone and Access Branches
-
 ### Cloning the Repository
 
 To get started, clone the repository from GitHub:
-
 ```
-git clone https://github.com/PikoCanFly/Learn-Django-HTMX-Course.git
-cd Learn-Django-HTMX-Course
+git clone https://github.com/PikoCanFly/Django-and-HTMX-Course-Series-Movie-Spot.git
+cd Django-and-HTMX-Course-Series-Movie-Spot
 ```
-
 ## Accessing the branches:
 This repository is organized into branches corresponding to each part of the series. To work with Part-2, run:
 
