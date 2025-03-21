@@ -1,4 +1,4 @@
-﻿﻿# Movie Spot - Part-3: Dynamic Content Loading (asynchronous page loading)
+﻿﻿#Movie Spot - Part-3: Dynamic Content Loading (asynchronous page loading)
 
 
 
