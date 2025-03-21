@@ -79,7 +79,10 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
-Access the Application:
+
+**Environment Setup & API Key Reminder**
+
+Make sure you've already set up your environment and obtained your TMDB API key. If you haven't done so yet, you might want to refer back to Part 1 of this series, where we cover creating the .env file and configuring your settings to securely load your API key. This setup is essential for accessing live movie data throughout the entire series.
 
 
 ## Next Steps
