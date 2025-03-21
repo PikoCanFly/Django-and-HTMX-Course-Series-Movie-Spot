@@ -44,7 +44,7 @@ cd Django-and-HTMX-Course-Series-Movie-Spot
 ```
 
 ## Accessing the branches:
-This repository is organized into branches corresponding to each part of the series. To work with Part-2, run:
+This repository is organized into branches corresponding to each part of the series. To work with Part-3, run:
 
 
 ```
