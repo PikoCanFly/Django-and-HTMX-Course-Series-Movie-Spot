@@ -1,9 +1,9 @@
 # Movie Spot - Part 6: User Authentication & Account Management
 
 
-[Watch the Movie Spot Tutorial on YouTube](https://youtu.be/n2EupfyCEbY)  
+[Watch the Movie Spot Tutorial on YouTube](https://youtu.be/aCWd4loTl68)  
 <br/>
-[![Movie Spot - Part-2 Thumbnail](https://img.youtube.com/vi/n2EupfyCEbY/hqdefault.jpg)](https://youtu.be/n2EupfyCEbY)
+[![Movie Spot - Part-2 Thumbnail](https://img.youtube.com/vi/aCWd4loTl68/hqdefault.jpg)](https://youtu.be/aCWd4loTl68)
 Welcome to **Movie Spot Part 6**! In this branch, we focus on building a secure user authentication system and managing user accounts within our Django web app. In this part of the series, you'll learn how to:
 
 - **Set Up User Authentication:**  
